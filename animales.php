@@ -1,0 +1,60 @@
+<?php
+include("config.php");
+//Hago el query con el select
+$query = "SELECT * FROM tb_animales WHERE estado = 1 ";
+$result = mysqli_query($mysqli, $query);
+?>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/mystyle1.css" />
+    <title>Animales</title>
+</head>
+
+<body>
+    <!-- Creamos un menu     -->
+    <div class="icon-bar">
+        <a href="ani_registro.php"><i class="fa fa-registered"></i></a>
+        <a href="inicio.php"><i class="fa fa-home"></i></a>
+    </div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<h2>Animales</h2>
+<hr>
+<div class= "container">
+    <!-- Creo la tabla para presentar las areas de la base de datos  -->
+    <?php
+    echo  "<table border ='1'>
+<tr>
+<th>Codigo</th>
+<th>Nombre</th>
+<th>Especie</th>
+<th>Edad</th>
+<th>Genero</th>
+<th>Fecha de nacimiento</th>
+<th>Editar</th>
+<th>Eliminar</th>
+</tr>";
+
+while($row = mysqli_fetch_array($result)){
+//    recorro cada uno del array y lo voy presentando 
+    echo "<tr>";
+    echo "<td>" . $row['id_animales'] . "</td>";
+    echo "<td>" . $row['nombre'] . "</td>";
+    echo "<td>" . $row['especie'] . "</td>";
+    echo "<td>" . $row['edad'] . "</td>";
+    echo "<td>" . $row['genero'] . "</td>";
+    echo "<td>" . $row['fecha_nacimiento'] . "</td>";
+    echo "<td><a href='ani_editar.php?id=" . $row['id_animales'] . "'><img src='./images/icons8-Edit-32.png' alt='Edit'></a></td>";
+    echo "<td><a href='ani_eliminar.php?id=" . $row['id_animales'] . "'><img src='./images/icons8-Trash-32.png' alt='Delete'></a></td>";
+    echo "</tr>";
+
+}
+echo "</table>";
+
+    ?>
+</body>
+
+</html>
